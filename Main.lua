@@ -29,7 +29,7 @@ end
 ---------------------------|
 -- Version: ---------------|
 _Name = "Vestiria"
-_Version = "v[4.0.0]"
+_Version = "v[4.0.1]"
 
 ---------------------------|
 -- Services: --------------|
@@ -2370,6 +2370,12 @@ GlobalMisc:AddButton("Close Garage Door", function()
 
 	messageSender.update("Closed Garage Door")
 end)
+GlobalMisc:AddButton("Reset Character", function()
+	Character:BreakJoints()
+end)
+GlobalMisc:AddButton("Rejoin Game", function()
+	game:GetService("TeleportService"):Teleport(game.PlaceId)
+end)
 -- Advertise 
 
 local AdvertiseSect = GlobalTab:AddSection("Advertise")
@@ -2554,7 +2560,11 @@ wait(2)
 coroutine.resume(coroutine.create(function()
 	while wait() do 
 		titleBar.Title.Text = "Vestiria v[4.0.0]"
-		local text = "Vestiria v[4.0.0] brought to you by T0mGames" .. "\n" .. "Roblox: VestiriaScripter" .. "\n" .."Discord: T0mgames#0477"
+		if Player.UserId == 1329695538 then
+			local text = "Vestiria v[4.0.0] brought to you by T0mGames" .. "\n" .. "Roblox: VestiriaScripter" .. "\n" .."Discord: T0mgames#0477" .. "\n" .. "(love u samar)"
+		else
+			local text = "Vestiria v[4.0.0] brought to you by T0mGames" .. "\n" .. "Roblox: VestiriaScripter" .. "\n" .."Discord: T0mgames#0477"
+		end
 		Description.Text = text 
 		local r = (math.sin(workspace.DistributedGameTime/2)/2)+0.5
 		local g = (math.sin(workspace.DistributedGameTime)/2)+0.5
@@ -2582,7 +2592,7 @@ local facts = {
 	"Someone on Earth reports seeing a UFO every three minutes.",
 	"The speed of a typical raindrop is 17 miles per hour.",
 	"The first product to have a bar code was Wrigleys gum",
-	"Samar = fat",
+	"Samar = best person",
 	"Ves is world's best prison life scripter"
 }
 coroutine.resume(coroutine.create(function()
