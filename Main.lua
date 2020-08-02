@@ -29,7 +29,7 @@ end
 ---------------------------|
 -- Version: ---------------|
 _Name = "Vestiria"
-_Version = "v[4.0.1]"
+_Version = "v[4.0.2]"
 
 ---------------------------|
 -- Services: --------------|
@@ -1367,6 +1367,34 @@ local tbl_36B585E8 =
 	  	SendMessage("Crash script finishes when u become an inmate!", Color3.fromRGB(0,255,0))
 end
 
+local hearSound
+local p = game:GetService("Players").LocalPlayer
+hearSound = false 
+
+local function SpamSound()
+	for i,v in pairs(p.Character:WaitForChild("HumanoidRootPart"):GetChildren()) do
+		if (v:IsA("Sound")) then
+			if hearSound then  
+				v.Volume = math.huge
+				v:Play()
+				game.ReplicatedStorage:WaitForChild("SoundEvent"):FireServer(v)
+			else
+				v.Volume = math.huge
+				game.ReplicatedStorage:WaitForChild("SoundEvent"):FireServer(v)
+		end
+		end
+	end
+	local punchSound = p.Character.Head.punchSound
+	if hearSound then
+		punchSound:Play()
+		punchSound.Volume = math.huge
+		game.ReplicatedStorage:WaitForChild("SoundEvent"):FireServer(punchSound)
+	else
+		punchSound.Volume = math.huge
+		game.ReplicatedStorage:WaitForChild("SoundEvent"):FireServer(punchSound)
+	end
+end
+
 
 ---------------------------|
 -- Gui: -------------------|
@@ -1379,7 +1407,7 @@ local window = library:CreateWindow(_Name .. " " .. _Version)
 ---------------------------|
 -- Teams: -----------------|
 local TeamsTab = window:CreateTab("Teams")
-local JoinTeams = TeamsTab:AddSection("Team Changer")
+local JoinTeams = TeamsTab:AddSection("--| Team Changer |--")
 JoinTeams:AddButton("Inmates", function()
 	TeamEvent:FireServer(tostring(Teams.Inmates.TeamColor))
 end)
@@ -1398,7 +1426,7 @@ JoinTeams:AddButton("Neutral", function()
 end)
 -- Auto Join Teams
 
-local AutoJoins = TeamsTab:AddSection("Auto Joins")
+local AutoJoins = TeamsTab:AddSection("--| Auto Joins |--")
 AutoJoins:AddToggle("Auto Join Inmates", function(state)
 	getgenv().AJI = state
 	repeat wait()
@@ -1422,7 +1450,7 @@ AutoJoins:AddToggle("Team Spam", function(state)
 	until getgenv().TeamSpam == false
 end)
 -- Custom Team Color
-local CustomColorSect = TeamsTab:AddSection("Custom Colors")
+local CustomColorSect = TeamsTab:AddSection("--| Custom Colors |--")
 CustomColorSect:AddCP("Color", Color3.fromRGB(255,255,255), function(color,alpha)
 	getgenv().CustomColor = color
 end)
@@ -1439,7 +1467,7 @@ end)
 ---------------------------|
 -- Weapons: ---------------|
 local WeaponsTab = window:CreateTab("Weapons")
-local Givers = WeaponsTab:AddSection("Givers")
+local Givers = WeaponsTab:AddSection("--| Givers |--")
 Givers:AddButton("Give Guns", function()
 	getGuns()
 end)
@@ -1450,6 +1478,28 @@ Givers:AddButton("Give Tazer/Handcuffs", function()
 	ninthKnight()
 	wait()
 	TeamEvent:FireServer(tostring(Teams.Inmates.TeamColor))
+end)
+Givers:AddButton("Give Armor", function()
+	if MarketplaceService:UserOwnsGamePassAsync(Player.UserId, 96651) then
+		ninthKnight()
+		wait()
+		ItemHandler:InvokeServer(workspace.Prison_ITEMS.clothes["Riot Police"].ITEMPICKUP)
+		wait()
+		TeamEvent:InvokeServer(tostring(Teams.Inmates.TeamColor))
+	else
+		SendMessage("You must own the riot pass!", Color3.fromRGB(255,0,0))
+	end
+end)
+Givers:AddButton("Give Shield", function()
+	if MarketplaceService:UserOwnsGamePassAsync(Player.UserId, 96651) then
+		ninthKnight()
+		wait()
+		ItemHandler:InvokeServer(workspace.Prison_ITEMS.giver["Riot Shield"].ITEMPICKUP)
+		wait()
+		TeamEvent:InvokeServer(tostring(Teams.Inmates.TeamColor))
+	else
+		SendMessage("You must own the riot pass!", Color3.fromRGB(255,0,0))
+	end
 end)
 Givers:AddButton("Give Sword", function()
 	loadstring(game:HttpGet(("https://pastebin.com/raw/TeNjzL80"), true))()
@@ -1474,7 +1524,7 @@ Givers:AddToggle("Auto Give Tools", function(state)
 end)
 -- Mod Guns
 
-local ModGunsSect = WeaponsTab:AddSection("Mod Guns")
+local ModGunsSect = WeaponsTab:AddSection("--| Mods |--")
 ModGunsSect:AddButton("Mod All", function()
 	for i,v in pairs(Backpack:GetChildren()) do
 		ModifyGun(v)
@@ -1499,8 +1549,10 @@ ModGunsSect:AddButton("Lag Shotgun", function()
 	end
 end)
 -- Gun Colors
+local asf2t2zhbogf = WeaponsTab:AddSection("")
+local asf2t2zhddbogf = WeaponsTab:AddSection("")
 
-local GunColorSect = WeaponsTab:AddSection("Gun Colors")
+local GunColorSect = WeaponsTab:AddSection("--| Gun Colors |--")
 GunColorSect:AddCP("Color", Color3.fromRGB(255,255,255), function(color,alpha)
 	WeaponsStuff.GunColor = color
 	WeaponsStuff.GunTransparency = alpha
@@ -1514,7 +1566,7 @@ end)
 ---------------------------|
 -- Character: -------------|
 local CHGui = window:CreateTab("Character")
-local charMods = CHGui:AddSection("Character Mods")
+local charMods = CHGui:AddSection("--| Character |--")
 charMods:AddToggle("Inf Stamina", function(state)
 	CharacterStuff.InfStamina = state
 end)
@@ -1545,7 +1597,7 @@ charMods:AddToggle("Tazer Bypass", function(state)
 end)
 -- Walkspeed and Jump Power
 
-local LPMods = CHGui:AddSection("LocalPlayer")
+local LPMods = CHGui:AddSection("--| LocalPlayer |--")
 LPMods:AddSlider("Walkspeed", 250, 16, function(value)
 	CharacterStuff.WalkSpeed = value
 end, true)
@@ -1568,7 +1620,7 @@ LPMods:AddToggle("Change Hip Height", function(state)
 	Humanoid.HipHeight = state and CharacterStuff.HipHeight or 0
 end)
 -- Misc Modifications
-local CHMisc = CHGui:AddSection("Misc")
+local CHMisc = CHGui:AddSection("--| Misc |--")
 CHMisc:AddButton("Respawn", function()
 	LoadCharEvent:InvokeServer()
 end)
@@ -1603,7 +1655,7 @@ end)
 ---------------------------|
 -- Teleports: -------------|
 local TPGui = window:CreateTab("Teleports")
-local TeleportSect = TPGui:AddSection("Teleports")
+local TeleportSect = TPGui:AddSection("--| Teleports |--")
 
 local TpNames = {
 	"Prison",
@@ -1655,7 +1707,7 @@ end
 ---------------------------|
 -- Player: ----------------|
 local PGui = window:CreateTab("Player")
-local PlrName = PGui:AddSection("Select Player")
+local PlrName = PGui:AddSection("--| Select Player |--")
 PlrName:AddBox("Player Name", function(value, a)
 	local h = findPlayer(value)
 	if h then
@@ -1667,7 +1719,7 @@ PlrName:AddBox("Player Name", function(value, a)
 end, true)
 -- Tp/View
 
-local TpView = PGui:AddSection("Teleport/View")
+local TpView = PGui:AddSection("--| Teleport/View |--")
 TpView:AddButton("Teleport To", function()
 	local Target = game.Players[PlayerStuff.PlayerSelected].Character.HumanoidRootPart
 	if Target and RootPart then
@@ -1715,7 +1767,7 @@ TpView:AddToggle("Loopbring Player", function(state)
 end)
 -- Kill
 
-local KillPlr = PGui:AddSection("Kill")
+local KillPlr = PGui:AddSection("--| Kill |--")
 KillPlr:AddButton("Kill", function()
 	if PlayerStuff.PlayerSelected then
 		KillSpecific(PlayerStuff.PlayerSelected)
@@ -1740,7 +1792,7 @@ KillPlr:AddButton("Inf Loopkill", function()
 end)
 -- Arrest
 
-local ArrestPlr = PGui:AddSection("Arrest")
+local ArrestPlr = PGui:AddSection("--| Arrest |--")
 ArrestPlr:AddButton("Arrest", function()
 	if PlayerStuff.PlayerSelected then
 		ArrestSpecific(PlayerStuff.PlayerSelected)
@@ -1780,7 +1832,7 @@ ArrestPlr:AddToggle("Spam Arrest", function(state)
 end)
 -- Taze
 
-local TazePlr = PGui:AddSection("Taze")
+local TazePlr = PGui:AddSection("--| Taze |--")
 TazePlr:AddButton("Taze", function()
 	if PlayerStuff.PlayerSelected then
 		ninthKnight()
@@ -1803,7 +1855,7 @@ TazePlr:AddToggle("Loop taze", function(state)
 end)
 -- Crash
 
-local CrashPlr = PGui:AddSection("Crash")
+local CrashPlr = PGui:AddSection("--| Crash |--")
 CrashPlr:AddButton("Crash Player", function()
 	if PlayerStuff.PlayerSelected then
 		local Target = game.Players[PlayerStuff.PlayerSelected]
@@ -1826,7 +1878,7 @@ CrashPlr:AddButton("Taze Crash (cant be guard)", function()
 end)
 -- Make Criminal
 
-local MakePlrCrim = PGui:AddSection("Criminal")
+local MakePlrCrim = PGui:AddSection("--| Criminal |--")
 MakePlrCrim:AddButton("Make Criminal", function()
 	if PlayerStuff.PlayerSelected then
 		MakeCriminal(PlayerStuff.PlayerSelected)
@@ -1836,7 +1888,7 @@ end)
 ---------------------------|
 -- Kill: ------------------|
 local KillTab = window:CreateTab("Kill")
-local KillAllSect = KillTab:AddSection("Kill Alls")
+local KillAllSect = KillTab:AddSection("--| Kill Alls |--")
 KillAllSect:AddButton("Kill All", function()
 	KillAll()
 end)
@@ -1854,7 +1906,7 @@ KillAllSect:AddButton("Inf LoopKill All", function()
 end)
 -- Kill Specific Teams
 
-local KillTeams = KillTab:AddSection("Kill Specific Teams")
+local KillTeams = KillTab:AddSection("--| Kill Teams |--")
 KillTeams:AddDropdown("Target Team", {"Guards", "Inmates", "Criminals", "Neutral"}, function(value)
 	KillStuff.TargetTeam = value
 	getgenv().LoopKillerTarget = value
@@ -1882,7 +1934,7 @@ KillTeams:AddButton("Inf Loopkill Team", function()
 end)
 -- Misc Kill 
 
-local MiscKill = KillTab:AddSection("Misc Kills")
+local MiscKill = KillTab:AddSection("--| Misc |--")
 MiscKill:AddButton("Kill Half Server", function()
 	local plrs = {}
 	local SelectedPlrs = {}
@@ -1926,7 +1978,7 @@ MiscKill:AddToggle("Click Kill", function(state)
 end)
 -- Auras
 
-local KillAuras = KillTab:AddSection("Auras")
+local KillAuras = KillTab:AddSection("--| Auras |--")
 KillAuras:AddDropdown("Kill Aura Target", {"All", "Inmates", "Guards", "Criminals", "Neutral"}, function(value)
 	KillStuff.KillAuraTarget = value
 end, true)
@@ -1940,9 +1992,17 @@ end)
 ---------------------------|
 -- Exploits: --------------|
 local ExploitsTab = window:CreateTab("Exploits")
-local MainExploits = ExploitsTab:AddSection("Main Exploits")
+local MainExploits = ExploitsTab:AddSection("--| Main |--")
 MainExploits:AddToggle("Silent Aim", function(state)
 	ExploitsStuff.SilentAimEnabled = state
+end)
+MainExploits:AddToggle("Spam Sounds", function(state)
+	ExploitsStuff.SpamSounds = state
+	SendMessage("You won't be able to hear it but others will!", Color3.fromRGB(255,0,255))
+	while ExploitsStuff.SpamSounds do
+		if ExploitsStuff.SpamSounds == false then break end
+		spamSounds()
+	end
 end)
 MainExploits:AddToggle("Lag Server (swat)", function(state)
 	ExploitsStuff.SwatLag = state
@@ -1951,7 +2011,7 @@ MainExploits:AddToggle("Lag Server (swat)", function(state)
 			workspace.Remote.TeamEvent:FireServer("Bright blue")
 			
 			ninthKnight()
-			for i = 10000,999999999999999,1 do
+			for i = 10000,99999999999999999,1 do
 				for i,v in pairs (workspace.Prison_ITEMS.clothes:GetChildren()) do
 					local VestiriaBestPLifeGui = workspace.Remote.ItemHandler:InvokeServer(v.ITEMPICKUP)
 					print(VestiriaBestPLifeGui)    
@@ -2048,7 +2108,7 @@ MainExploits:AddToggle("Spawn Items", function(state)
 end)
 -- Taze Exploits
 
-local TazeSect = ExploitsTab:AddSection("Taze Exploits")
+local TazeSect = ExploitsTab:AddSection("--| Taze |--")
 TazeSect:AddButton("Taze All", function()
 	ninthKnight()
 	for i,v in pairs(Players:GetPlayers()) do
@@ -2094,7 +2154,7 @@ TazeSect:AddToggle("Taze Aura", function(state)
 end)
 -- Arrest Exploits
 
-local ArrestSect = ExploitsTab:AddSection("Arrest Exploits")
+local ArrestSect = ExploitsTab:AddSection("--| Arrest |--")
 ArrestSect:AddButton("Arrest All", function()
 	arrestAll()
 end)
@@ -2139,7 +2199,7 @@ end)
 ---------------------------|
 -- Car Haxx: --------------|
 local CarHaxxTab = window:CreateTab("CarHaxx")
-local MainCarStuff = CarHaxxTab:AddSection("Main")
+local MainCarStuff = CarHaxxTab:AddSection("--| Main |--")
 MainCarStuff:AddButton("How to use", function()
 	SendMessage(" || How to use Car Haxx || ", Color3.fromRGB(255,255,0))
 	wait()
@@ -2302,7 +2362,7 @@ MainCarStuff:AddToggle("Car Spam", function(state)
 end)
 -- Misc Mods
 
-local MiscCar = CarHaxxTab:AddSection("Misc")
+local MiscCar = CarHaxxTab:AddSection("-- |Misc |--")
 MiscCar:AddToggle("Car Speed", function(state)
 	CarHaxxStuff.CarSpeed = state
 	while CarHaxxStuff.CarSpeed do wait()
@@ -2319,7 +2379,7 @@ end)
 ---------------------------|
 -- Global: ----------------|
 local GlobalTab = window:CreateTab("Global")
-local RemovesSect = GlobalTab:AddSection("Removes")
+local RemovesSect = GlobalTab:AddSection("--| Removes |--")
 RemovesSect:AddToggle("Remove Doors", function(state)
 	if (state == true) then  
 		addFolder("Doors", game.Workspace)
@@ -2352,7 +2412,7 @@ RemovesSect:AddToggle("Remove Town", function(state)
 end)
 -- Misc (idek)
 
-local GlobalMisc = GlobalTab:AddSection("Misc")
+local GlobalMisc = GlobalTab:AddSection("--| Misc |--")
 GlobalMisc:AddButton("Open Gate", function()
 	ItemHandler:InvokeServer(game.Workspace["Prison_ITEMS"].buttons["Prison Gate"]["Prison Gate"])
 
@@ -2378,7 +2438,7 @@ GlobalMisc:AddButton("Rejoin Game", function()
 end)
 -- Advertise 
 
-local AdvertiseSect = GlobalTab:AddSection("Advertise")
+local AdvertiseSect = GlobalTab:AddSection("--| Advertise |--")
 AdvertiseSect:AddButton("Advertise", function()
 	local message = "You're a script kiddie if you don't use " .. _Name .. " " .. _Version
 	ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(message, "All")
@@ -2394,7 +2454,7 @@ AdvertiseSect:AddToggle("Spam Advertise", function(state)
 end)
 -- Main
 
-local GlobalMain = GlobalTab:AddSection("Main")
+local GlobalMain = GlobalTab:AddSection("--| Main |--")
 GlobalMain:AddToggle("Fullbright", function(state)
 	_G.FullBrightEnabled = state
 end)
@@ -2420,11 +2480,14 @@ end)
 GlobalMain:AddToggle("Toggle Hud", function(state)
 	hud.Visible = state
 end)
+GlobalMain:AddToggle("Toggle Fun Facts", function(state)
+	getgenv().funFacts = state
+end)
 
 ---------------------------|
 -- OtherScripts: ----------|
 local otherScriptsTab = window:CreateTab("Other")
-local xdddd = otherScriptsTab:AddSection("Main")
+local xdddd = otherScriptsTab:AddSection("--| Main |--")
 xdddd:AddButton("Infinite Yield", function()
 	loadstring(game:HttpGet(("https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source"), true))()
 end)
@@ -2443,7 +2506,9 @@ end)
 xdddd:AddButton("Chat Translator", function()
 	loadstring(game:HttpGetAsync('https://raw.githubusercontent.com/xxaim/ignore/master/translator.lua'))()
 end)
-
+xdddd:AddButton("FE Dog", function()
+	loadstring(game:HttpGet(("https://pastebin.com/raw/iWFJUfDM"), true))()
+end)
 
 ---------------------------|
 -- Connects: --------------|
@@ -2482,6 +2547,13 @@ Player.CharacterAdded:Connect(function(character)
 				KillStuff.KillAura = true
 				wait(1)
 				KillStuff.KillAura = false
+				KillStuff.KillAuraTarget = backUpTarget
+				return
+			else
+				local backUpTarget = KillStuff.KillAuraTarget
+				wait()
+				KillStuff.KillAuraTarget = "All"
+				wait(1)
 				KillStuff.KillAuraTarget = backUpTarget
 			end
 		end
@@ -2558,14 +2630,14 @@ end)
 typeWrite("Welcome " .. Player.Name .. " to " .. _Name, titleBar.Title)
 wait(2)
 coroutine.resume(coroutine.create(function()
+	local lilMessage = "Vestiria v[4.0.0] brought to you by T0mGames" .. "\n" .. "Roblox: VestiriaScripter" .. "\n" .."Discord: T0mgames#0477"
+	if Player.UserId == 1329695538 then
+		lilMessage = "Vestiria v[4.0.0] brought to you by T0mGames" .. "\n" .. "Roblox: VestiriaScripter" .. "\n" .."Discord: T0mgames#0477" .. "\n" .. "(love u samar)"
+	end
 	while wait() do 
 		titleBar.Title.Text = "Vestiria v[4.0.0]"
-		if Player.UserId == 1329695538 then
-			local text = "Vestiria v[4.0.0] brought to you by T0mGames" .. "\n" .. "Roblox: VestiriaScripter" .. "\n" .."Discord: T0mgames#0477" .. "\n" .. "(love u samar)"
-		else
-			local text = "Vestiria v[4.0.0] brought to you by T0mGames" .. "\n" .. "Roblox: VestiriaScripter" .. "\n" .."Discord: T0mgames#0477"
-		end
-		Description.Text = text 
+		wait()
+		Description.Text = lilMessage 
 		local r = (math.sin(workspace.DistributedGameTime/2)/2)+0.5
 		local g = (math.sin(workspace.DistributedGameTime)/2)+0.5
 		local b = (math.sin(workspace.DistributedGameTime*1.5)/2)+0.5
@@ -2576,30 +2648,24 @@ end))
 
 ---------------------------|
 -- Random Messages: -------|
-local facts = {
-	"Cat's cannot taste sweet things",
-	"Surgeons who listen to music during operations perform better than those who don't.",
-	"The great wall of China is 1,400 miles long",
-	"Women blink nearly twice as much as men.",
-	"Donkeys kill more people annually than plane crashes.",
-	"Each year 96 billion pounds of food is wasted in the U.S.",
-	"Lightning strikes about 6,000 times per minute on this planet",
-	"A bird 'chews' with its stomach.",
-	"On average, half of all false teeth have some form of radioactivity.",
-	"It was discovered on a space mission that a frog can throw up.",
-	"The heart of an astronaut actually gets smaller when in outer space.",
-	"Your heart pumps about 2,000 gallons of blood each day",
-	"Someone on Earth reports seeing a UFO every three minutes.",
-	"The speed of a typical raindrop is 17 miles per hour.",
-	"The first product to have a bar code was Wrigleys gum",
-	"Samar = best person",
-	"Ves is world's best prison life scripter"
-}
+local facts = loadstring(game:HttpGet(("https://raw.githubusercontent.com/T0mGames/Vestiria/master/Facts.lua"), true))()
 coroutine.resume(coroutine.create(function()
-	if getgenv().funFacts == false then return end
 	while wait(60) do
-		local ranNum = math.random(1,#facts)
-		local message = facts[ranNum]
-		FactMessage(ranNum,message, Color3.fromRGB(255,0,255))
+		if getgenv().funFacts ~= false then
+			local ranNum = math.random(1,#facts)
+			local message = facts[ranNum]
+			FactMessage(ranNum,message, Color3.fromRGB(255,0,255))
+		end
 	end
 end))
+
+---------------------------|
+-- Rejoin Script: ---------|
+Player.OnTeleport:Connect(function(State)
+	if State == Enum.TeleportState.Started then
+		syn.queue_on_teleport([[
+			getgenv().funFacts = true
+			loadstring(game:HttpGet(('https://raw.githubusercontent.com/T0mGames/Vestiria/master/Main.lua'), true))()	
+		]])
+	end
+end)
