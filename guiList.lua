@@ -51,7 +51,6 @@ function guiList.infoGui()
   BackgroundFrame.Size = UDim2.new(0, 320, 0, 190)
   BackgroundFrame.Active = true
   BackgroundFrame.Draggable = true
-  BackgroundFrame.Visible = false
   
   Toppart.Name = "Toppart"
   Toppart.Parent = BackgroundFrame
