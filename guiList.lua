@@ -873,7 +873,7 @@ BeInm.Text = ""
 BeInm.TextColor3 = Color3.fromRGB(0, 0, 0)
 BeInm.TextSize = 14.000
 BeInm.MouseButton1Down:Connect(function()
-	execCmd("t inm", Player)
+		_G.execCmd("t inm", Player)
 end)
 
 BeCrim.Name = "BeCrim"
@@ -887,7 +887,7 @@ BeCrim.Text = ""
 BeCrim.TextColor3 = Color3.fromRGB(0, 0, 0)
 BeCrim.TextSize = 14.000
 BeCrim.MouseButton1Down:Connect(function()
-	execCmd("t crim", Player)
+		_G.execCmd("t crim", Player)
 end)
 
 BeNeu.Name = "BeNeu"
@@ -901,7 +901,7 @@ BeNeu.Text = ""
 BeNeu.TextColor3 = Color3.fromRGB(0, 0, 0)
 BeNeu.TextSize = 14.000
 BeNeu.MouseButton1Down:Connect(function()
-	execCmd("t n", Player)
+	_G.execCmd("t n", Player)
 end)
 
 BeGuard.Name = "BeGuard"
@@ -915,7 +915,7 @@ BeGuard.Text = ""
 BeGuard.TextColor3 = Color3.fromRGB(0, 0, 0)
 BeGuard.TextSize = 14.000
 BeGuard.MouseButton1Down:Connect(function()
-	execCmd("t g", Player)
+	_G.execCmd("t g", game.Players.LocalPlayer)
 end)
 
 Refresh.Name = "Refresh"
@@ -929,7 +929,7 @@ Refresh.Text = "Refresh"
 Refresh.TextColor3 = Color3.fromRGB(255, 255, 255)
 Refresh.TextSize = 15.000
 Refresh.MouseButton1Down:Connect(function()
-	refreshPlayer()
+		_G.execCmd("re", game.Players.LocalPlayer)
 end)
 
 UICorner_4.CornerRadius = UDim.new(0, 10)
@@ -946,7 +946,7 @@ SpawnButton.Text = "Spawn"
 SpawnButton.TextColor3 = Color3.fromRGB(255, 255, 255)
 SpawnButton.TextSize = 15.000
 SpawnButton.MouseButton1Down:Connect(function()
-	LoadCharEvent:InvokeServer()
+	game.workspace.Remote.loadchar:InvokeServer()
 end)
 
 UICorner_5.CornerRadius = UDim.new(0, 10)
@@ -963,7 +963,7 @@ Nexus.Text = "Nexus"
 Nexus.TextColor3 = Color3.fromRGB(255, 255, 255)
 Nexus.TextSize = 15.000
 Nexus.MouseButton1Down:Connect(function()
-	execCmd("tp pos nex", Player)
+		_G.execCmd("tp pos nex", Player)
 end)
 
 UICorner_6.CornerRadius = UDim.new(0, 10)
@@ -980,7 +980,7 @@ Yard.Text = "Yard"
 Yard.TextColor3 = Color3.fromRGB(255, 255, 255)
 Yard.TextSize = 15.000
 Yard.MouseButton1Down:Connect(function()
-	execCmd("tp pos yard", Player)
+		_G.execCmd("tp pos yard", Player)
 end)
 
 UICorner_7.CornerRadius = UDim.new(0, 10)
@@ -997,7 +997,7 @@ Armory.Text = "Armory"
 Armory.TextColor3 = Color3.fromRGB(255, 255, 255)
 Armory.TextSize = 15.000
 Armory.MouseButton1Down:Connect(function()
-	execCmd("tp pos arm", Player)
+		_G.execCmd("tp pos arm", Player)
 end)
 
 UICorner_8.CornerRadius = UDim.new(0, 10)
@@ -1014,7 +1014,7 @@ Cells.Text = "Cells"
 Cells.TextColor3 = Color3.fromRGB(255, 255, 255)
 Cells.TextSize = 15.000
 Cells.MouseButton1Down:Connect(function()
-	execCmd("tp pos cells", Player)
+		_G.execCmd("tp pos cells", Player)
 end)
 
 UICorner_9.CornerRadius = UDim.new(0, 10)
@@ -1031,7 +1031,7 @@ Back.Text = "Back"
 Back.TextColor3 = Color3.fromRGB(255, 255, 255)
 Back.TextSize = 15.000
 Back.MouseButton1Down:Connect(function()
-	execCmd("tp pos back", Player)
+		_G.execCmd("tp pos back", Player)
 end)
 
 UICorner_10.CornerRadius = UDim.new(0, 10)
@@ -1048,7 +1048,7 @@ Cafe.Text = "Cafe"
 Cafe.TextColor3 = Color3.fromRGB(255, 255, 255)
 Cafe.TextSize = 15.000
 Cafe.MouseButton1Down:Connect(function()
-	execCmd("tp pos cafe", Player)
+		_G.execCmd("tp pos cafe", Player)
 end)
 
 UICorner_11.CornerRadius = UDim.new(0, 10)
@@ -1065,7 +1065,7 @@ Driveway.Text = "Driveway"
 Driveway.TextColor3 = Color3.fromRGB(255, 255, 255)
 Driveway.TextSize = 15.000
 Driveway.MouseButton1Down:Connect(function()
-	execCmd("tp pos driv", Player)
+		_G.execCmd("tp pos driv", Player)
 end)
 
 UICorner_12.CornerRadius = UDim.new(0, 10)
@@ -1082,7 +1082,7 @@ Roof.Text = "Roof"
 Roof.TextColor3 = Color3.fromRGB(255, 255, 255)
 Roof.TextSize = 15.000
 Roof.MouseButton1Down:Connect(function()
-	execCmd("tp pos roof", Player)
+		_G.execCmd("tp pos roof", Player)
 end)
 
 UICorner_13.CornerRadius = UDim.new(0, 10)
