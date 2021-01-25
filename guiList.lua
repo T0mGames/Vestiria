@@ -1370,4 +1370,140 @@ function guiList.loadCommands()
 	end
 end
 
+function guiList.cmdBar()
+  local CmdBar = Instance.new("ScreenGui")
+  local MainFrame = Instance.new("Frame")
+  local TopFrame = Instance.new("Frame")
+  local CloseButton = Instance.new("TextButton")
+  local UICorner = Instance.new("UICorner")
+  local TextLabel = Instance.new("TextLabel")
+  local ImageLabel = Instance.new("ImageLabel")
+  local UICorner_2 = Instance.new("UICorner")
+  local UICorner_3 = Instance.new("UICorner")
+  local HelpButton = Instance.new("TextButton")
+  local UICorner_4 = Instance.new("UICorner")
+  local Input = Instance.new("TextBox")
+  local UICorner_5 = Instance.new("UICorner")
+  local UICorner_6 = Instance.new("UICorner")
+  
+  --Properties:
+  
+  CmdBar.Name = "CmdBar"
+  CmdBar.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+  CmdBar.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+  
+  MainFrame.Name = "MainFrame"
+  MainFrame.Parent = CmdBar
+  MainFrame.BackgroundColor3 = Color3.fromRGB(49, 49, 49)
+  MainFrame.BorderSizePixel = 0
+  MainFrame.Position = UDim2.new(0.00885416567, 0, 0.864546537, 0)
+  MainFrame.Size = UDim2.new(0, 263, 0, 80)
+  MainFrame.Active = true
+  MainFrame.Draggable = true
+  
+  TopFrame.Name = "TopFrame"
+  TopFrame.Parent = MainFrame
+  TopFrame.BackgroundColor3 = Color3.fromRGB(80, 80, 80)
+  TopFrame.BorderSizePixel = 0
+  TopFrame.Size = UDim2.new(0, 263, 0, 43)
+  
+  CloseButton.Name = "CloseButton"
+  CloseButton.Parent = TopFrame
+  CloseButton.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+  CloseButton.BorderSizePixel = 0
+  CloseButton.Position = UDim2.new(0.866768003, 0, 0.186046511, 0)
+  CloseButton.Size = UDim2.new(0, 24, 0, 25)
+  CloseButton.Font = Enum.Font.SourceSans
+  CloseButton.RichText = true
+  CloseButton.Text = "<b>X</b>"
+  CloseButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+  CloseButton.TextSize = 18.000
+  CloseButton.TextWrapped = true
+  CloseButton.MouseButton1Down:Connect(function()
+  	CmdBar:Destroy()
+  end)
+  
+  UICorner.Parent = CloseButton
+  
+  TextLabel.Parent = TopFrame
+  TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+  TextLabel.BackgroundTransparency = 1.000
+  TextLabel.Position = UDim2.new(0.165779501, 0, 0.186046511, 0)
+  TextLabel.Size = UDim2.new(0, 170, 0, 25)
+  TextLabel.Font = Enum.Font.SourceSans
+  TextLabel.RichText = true 
+  TextLabel.Text = "<b>Vestiria Command Bar</b>"
+  TextLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+  TextLabel.TextSize = 18.000
+  TextLabel.TextXAlignment = Enum.TextXAlignment.Left
+  
+  ImageLabel.Parent = TopFrame
+  ImageLabel.BackgroundColor3 = Color3.fromRGB(49, 49, 49)
+  ImageLabel.BorderSizePixel = 0
+  ImageLabel.Position = UDim2.new(0.0266159698, 0, 0.139534891, 0)
+  ImageLabel.Size = UDim2.new(0, 30, 0, 30)
+  ImageLabel.Image = "http://www.roblox.com/asset/?id=6142456413"
+  
+  UICorner_2.Parent = ImageLabel
+  
+  UICorner_3.Parent = TopFrame
+  
+  HelpButton.Name = "HelpButton"
+  HelpButton.Parent = TopFrame
+  HelpButton.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+  HelpButton.BorderSizePixel = 0
+  HelpButton.Position = UDim2.new(0.752699554, 0, 0.186046511, 0)
+  HelpButton.Size = UDim2.new(0, 24, 0, 25)
+  HelpButton.Font = Enum.Font.SourceSans
+  HelpButton.RichText = true 
+  HelpButton.Text = "<b>?</b>"
+  HelpButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+  HelpButton.TextSize = 18.000
+  HelpButton.TextWrapped = true
+  HelpButton.MouseButton1Down:Connect(function()
+    guiList.loadCommands()
+  end)
+  
+  UICorner_4.Parent = HelpButton
+  
+  Input.Name = "Input"
+  Input.Parent = MainFrame
+  Input.BackgroundColor3 = Color3.fromRGB(80, 80, 80)
+  Input.BorderSizePixel = 0
+  Input.Position = UDim2.new(0.0266666766, 0, 0.625, 0)
+  Input.Size = UDim2.new(0, 245, 0, 19)
+  Input.Font = Enum.Font.Code
+  Input.PlaceholderText = "Press . to focus command bar"
+  Input.Text = ""
+  Input.TextColor3 = Color3.fromRGB(255, 255, 255)
+  Input.TextSize = 14.000
+  Input.TextXAlignment = Enum.TextXAlignment.Left
+  
+  UICorner_5.Parent = Input
+  
+  UICorner_6.Parent = MainFrame
+  
+  local prefix = _G.info.prefix
+  local commandBox = game.Players.LocalPlayer.PlayerGui.CmdBar.MainFrame.Input
+  game:GetService("Players").LocalPlayer:GetMouse().KeyDown:Connect(function(key)
+  	if key == prefix then
+  		if not commandBox:IsFocused() then
+  			commandBox:CaptureFocus()
+  			spawn(function()
+  				repeat commandBox.Text="" until commandBox.Text==""
+  			end)
+  		end
+  	end
+  end)
+  commandBox.FocusLost:Connect(function(enterpressed)
+  	if enterpressed then
+  		_G.execCmd(commandBox.Text, game.Players.LocalPlayer)
+  	end
+  	wait()
+  	if not commandBox:IsFocused()then
+  		commandBox.Text=""
+  	end
+  end)
+end
+
 return guiList
