@@ -1092,4 +1092,282 @@ UICorner_14.CornerRadius = UDim.new(0, 10)
 UICorner_14.Parent = MainFrame
 end
 
+function guiList.loadCommands()
+  local CommandsV2 = Instance.new("ScreenGui")
+	local fun = Instance.new("Frame")
+	local BackgroundFrame = Instance.new("Frame")
+	local Topframe = Instance.new("Frame")
+	local ImageLabel = Instance.new("ImageLabel")
+	local UICorner = Instance.new("UICorner")
+	local UICorner_2 = Instance.new("UICorner")
+	local TextLabel = Instance.new("TextLabel")
+	local CloseButton = Instance.new("TextButton")
+	local UICorner_3 = Instance.new("UICorner")
+	local UICorner_4 = Instance.new("UICorner")
+	local ScrollingFrame = Instance.new("ScrollingFrame")
+	local UIListLayout = Instance.new("UIListLayout")
+	local Information = Instance.new("Frame")
+	local UICorner_5 = Instance.new("UICorner")
+	local Topframe_2 = Instance.new("Frame")
+	local UICorner_6 = Instance.new("UICorner")
+	local CloseButton_2 = Instance.new("TextButton")
+	local UICorner_7 = Instance.new("UICorner")
+	local CmdName = Instance.new("TextLabel")
+	local Aliases = Instance.new("TextLabel")
+	local Args = Instance.new("TextLabel")
+	local Examples = Instance.new("TextLabel")
+
+	--Properties:
+
+	CommandsV2.Name = "CommandsV2"
+	CommandsV2.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+	CommandsV2.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+	fun.Name = "fun"
+	fun.Parent = CommandsV2
+	fun.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	fun.BackgroundTransparency = 1.000
+	fun.Size = UDim2.new(0, 100, 0, 100)
+
+	BackgroundFrame.Name = "BackgroundFrame"
+	BackgroundFrame.Parent = fun
+	BackgroundFrame.BackgroundColor3 = Color3.fromRGB(49, 49, 49)
+	BackgroundFrame.Position = UDim2.new(2.91916609, 0, 6.23679638, 0)
+	BackgroundFrame.Size = UDim2.new(0, 299, 0, 200)
+	BackgroundFrame.Active = true
+	BackgroundFrame.Draggable = true
+
+	Topframe.Name = "Topframe"
+	Topframe.Parent = BackgroundFrame
+	Topframe.BackgroundColor3 = Color3.fromRGB(80, 80, 80)
+	Topframe.BorderSizePixel = 0
+	Topframe.Position = UDim2.new(0, 0, -9.30786118e-05, 0)
+	Topframe.Size = UDim2.new(0, 299, 0, 36)
+
+	ImageLabel.Parent = Topframe
+	ImageLabel.BackgroundColor3 = Color3.fromRGB(49, 49, 49)
+	ImageLabel.BorderSizePixel = 0
+	ImageLabel.Position = UDim2.new(0.0266889632, 0, 0.0722222254, 0)
+	ImageLabel.Size = UDim2.new(0, 30, 0, 30)
+	ImageLabel.Image = "http://www.roblox.com/asset/?id=6142456413"
+
+	UICorner.Parent = ImageLabel
+
+	UICorner_2.Parent = Topframe
+
+	TextLabel.Parent = Topframe
+	TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	TextLabel.BackgroundTransparency = 1.000
+	TextLabel.Position = UDim2.new(0.157699078, 0, 0.138019115, 0)
+	TextLabel.Size = UDim2.new(0, 170, 0, 25)
+	TextLabel.Font = Enum.Font.SourceSans
+	TextLabel.RichText = true
+	TextLabel.Text = "<b>Vestiria Command List</b>"
+	TextLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+	TextLabel.TextSize = 18.000
+	TextLabel.TextXAlignment = Enum.TextXAlignment.Left
+
+	CloseButton.Name = "CloseButton"
+	CloseButton.Parent = Topframe
+	CloseButton.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+	CloseButton.BorderSizePixel = 0
+	CloseButton.Position = UDim2.new(0.890101314, 0, 0.137953639, 0)
+	CloseButton.Size = UDim2.new(0, 24, 0, 25)
+	CloseButton.Font = Enum.Font.SourceSans
+	CloseButton.RichText = true
+	CloseButton.Text = "<b>X</b>"
+	CloseButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+	CloseButton.TextSize = 18.000
+	CloseButton.TextWrapped = true
+	CloseButton.MouseButton1Down:Connect(function()
+		BackgroundFrame.Visible = false
+	end)
+
+	UICorner_3.Parent = CloseButton
+
+	UICorner_4.Parent = BackgroundFrame
+
+	ScrollingFrame.Parent = BackgroundFrame
+	ScrollingFrame.Active = true
+	ScrollingFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	ScrollingFrame.BackgroundTransparency = 1.000
+	ScrollingFrame.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	ScrollingFrame.Position = UDim2.new(0, 0, 0.215000004, 0)
+	ScrollingFrame.Size = UDim2.new(0, 299, 0, 157)
+	ScrollingFrame.CanvasSize = UDim2.new(5, 0, 20, 0)
+
+	local function addSection(text)
+		local SectionExample = Instance.new("TextButton")
+		SectionExample.Name = "SectionExample"
+		SectionExample.Parent = ScrollingFrame
+		SectionExample.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		SectionExample.BackgroundTransparency = 1.000
+		SectionExample.Position = UDim2.new(0.00936454814, 0, -0.000500000024, 0)
+		SectionExample.Size = UDim2.new(0, 281, 0, 16)
+		SectionExample.Font = Enum.Font.SourceSans
+		SectionExample.RichText = true
+		SectionExample.Text = text
+		SectionExample.TextColor3 = Color3.fromRGB(255, 255, 255)
+		SectionExample.TextSize = 18.000
+		SectionExample.TextXAlignment = Enum.TextXAlignment.Left
+		SectionExample.TextYAlignment = Enum.TextYAlignment.Bottom
+	end
+	addSection("<b>--- Team:</b>")
+
+	UIListLayout.Parent = ScrollingFrame
+	UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+
+	local function addButton(text, func, last)
+		if last == "GreyButton" then
+			local WhiteButton = Instance.new("TextButton")
+			WhiteButton.Name = "WhiteButton"
+			WhiteButton.Parent = ScrollingFrame
+			WhiteButton.BackgroundColor3 = Color3.fromRGB(134, 134, 134)
+			WhiteButton.BackgroundTransparency = 1.000
+			WhiteButton.Position = UDim2.new(0.00936454814, 0, -0.000500000024, 0)
+			WhiteButton.Size = UDim2.new(0, 281, 0, 16)
+			WhiteButton.Font = Enum.Font.SourceSans
+			WhiteButton.Text = text
+			WhiteButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+			WhiteButton.TextSize = 18.000
+			WhiteButton.TextXAlignment = Enum.TextXAlignment.Left
+			WhiteButton.TextYAlignment = Enum.TextYAlignment.Bottom
+			getgenv().lastOne = "WhiteButton"
+			WhiteButton.MouseButton1Down:Connect(func)
+		elseif last == "WhiteButton" then
+			local GreyButton = Instance.new("TextButton")
+			GreyButton.Name = "GreyButton"
+			GreyButton.Parent = ScrollingFrame
+			GreyButton.BackgroundColor3 = Color3.fromRGB(134, 134, 134)
+			GreyButton.BackgroundTransparency = 1.000
+			GreyButton.Position = UDim2.new(0.00936454814, 0, -0.000500000024, 0)
+			GreyButton.Size = UDim2.new(0, 281, 0, 16)
+			GreyButton.Font = Enum.Font.SourceSans
+			GreyButton.Text = text
+			GreyButton.TextColor3 = Color3.fromRGB(153, 153, 153)
+			GreyButton.TextSize = 18.000
+			GreyButton.TextXAlignment = Enum.TextXAlignment.Left
+			GreyButton.TextYAlignment = Enum.TextYAlignment.Bottom
+			getgenv().lastOne = "GreyButton"
+			GreyButton.MouseButton1Down:Connect(func)
+		end
+	end
+
+
+	Information.Name = "Information"
+	Information.Parent = BackgroundFrame
+	Information.BackgroundColor3 = Color3.fromRGB(49, 49, 49)
+	Information.Position = UDim2.new(1.02341151, 0, 0, 0)
+	Information.Size = UDim2.new(0, 190, 0, 200)
+	Information.Visible = false
+
+	UICorner_5.Parent = Information
+
+	Topframe_2.Name = "Topframe"
+	Topframe_2.Parent = Information
+	Topframe_2.BackgroundColor3 = Color3.fromRGB(80, 80, 80)
+	Topframe_2.BorderSizePixel = 0
+	Topframe_2.Position = UDim2.new(0, 0, -0.002235936, 0)
+	Topframe_2.Size = UDim2.new(0, 190, 0, 36)
+
+	UICorner_6.Parent = Topframe_2
+
+	CloseButton_2.Name = "CloseButton"
+	CloseButton_2.Parent = Topframe_2
+	CloseButton_2.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+	CloseButton_2.BorderSizePixel = 0
+	CloseButton_2.Position = UDim2.new(0.832206547, 0, 0.110175863, 0)
+	CloseButton_2.Size = UDim2.new(0, 24, 0, 25)
+	CloseButton_2.Font = Enum.Font.SourceSans
+	CloseButton_2.RichText = true
+	CloseButton_2.Text = "<b>X</b>"
+	CloseButton_2.TextColor3 = Color3.fromRGB(255, 255, 255)
+	CloseButton_2.TextSize = 18.000
+	CloseButton_2.TextWrapped = true
+	CloseButton_2.MouseButton1Down:Connect(function()
+		Information.Visible = false
+	end)
+
+	UICorner_7.Parent = CloseButton_2
+
+	CmdName.Name = "CmdName"
+	CmdName.Parent = Topframe_2
+	CmdName.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	CmdName.BackgroundTransparency = 1.000
+	CmdName.Position = UDim2.new(0.0471724682, 0, 0.165796921, 0)
+	CmdName.Size = UDim2.new(0, 127, 0, 25)
+	CmdName.Font = Enum.Font.SourceSans
+	CmdName.RichText = true
+	CmdName.Text = "<b>.team</b>"
+	CmdName.TextColor3 = Color3.fromRGB(255, 255, 255)
+	CmdName.TextSize = 18.000
+	CmdName.TextXAlignment = Enum.TextXAlignment.Left
+
+	Aliases.Name = "Aliases"
+	Aliases.Parent = Information
+	Aliases.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	Aliases.BackgroundTransparency = 1.000
+	Aliases.Position = UDim2.new(0.0471724682, 0, 0.213098392, 0)
+	Aliases.Size = UDim2.new(0, 172, 0, 33)
+	Aliases.Font = Enum.Font.SourceSans
+	Aliases.RichText = true
+	Aliases.Text = "<b>Aliases:</b> t, team"
+	Aliases.TextColor3 = Color3.fromRGB(255, 255, 255)
+	Aliases.TextSize = 16.000
+	Aliases.TextWrapped = true
+	Aliases.TextXAlignment = Enum.TextXAlignment.Left
+	Aliases.TextYAlignment = Enum.TextYAlignment.Top
+
+	Args.Name = "Args"
+	Args.Parent = Information
+	Args.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	Args.BackgroundTransparency = 1.000
+	Args.Position = UDim2.new(0.0471724644, 0, 0.413098454, 0)
+	Args.Size = UDim2.new(0, 172, 0, 47)
+	Args.Font = Enum.Font.SourceSans
+	Args.RichText = true
+	Args.Text = "<b>Arguments:</b> [teamname], user [name], rgb [code]"
+	Args.TextColor3 = Color3.fromRGB(255, 255, 255)
+	Args.TextSize = 16.000
+	Args.TextWrapped = true
+	Args.TextXAlignment = Enum.TextXAlignment.Left
+	Args.TextYAlignment = Enum.TextYAlignment.Top
+
+	Examples.Name = "Examples"
+	Examples.Parent = Information
+	Examples.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	Examples.BackgroundTransparency = 1.000
+	Examples.Position = UDim2.new(0.0471724682, 0, 0.648098409, 0)
+	Examples.Size = UDim2.new(0, 172, 0, 47)
+	Examples.Font = Enum.Font.SourceSans
+	Examples.RichText = true
+	Examples.Text = "<b>Examples:</b> .t i / .team user trans / .t rgb 255,255,255"
+	Examples.TextColor3 = Color3.fromRGB(255, 255, 255)
+	Examples.TextSize = 16.000
+	Examples.TextWrapped = true
+	Examples.TextXAlignment = Enum.TextXAlignment.Left
+	Examples.TextYAlignment = Enum.TextYAlignment.Top
+	getgenv().lastOne = "WhiteButton"
+	for i,v in next, _G.cmds do
+		if v.FUNC == nil then
+			addSection("<b>--- "..v.NAME..":</b>")
+		else
+		    print(v.NAME)
+			addButton(v.NAME .. " - ".. v.DESC, function()
+				local str = ""
+				if #v.ALIAS > 0 then
+					for i,v in next, v.ALIAS do
+						str = str .. v .. ","
+					end
+				end
+				CmdName.Text = "<b>."..v.NAME.."</b>"
+				Aliases.Text = "<b>Aliases: </b>"..str
+				Args.Text = "<b>Args: </b>".. v.INFO.args
+				Examples.Text = "<b>Examples: </b>".. v.INFO.examples
+				Information.Visible = true
+			end, getgenv().lastOne)
+		end
+	end
+end
+
 return guiList
