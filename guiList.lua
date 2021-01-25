@@ -873,7 +873,7 @@ BeInm.Text = ""
 BeInm.TextColor3 = Color3.fromRGB(0, 0, 0)
 BeInm.TextSize = 14.000
 BeInm.MouseButton1Down:Connect(function()
-		_G.execCmd("t inm", Player)
+		_G.execCmd("t inm", game.Players.LocalPlayer)
 end)
 
 BeCrim.Name = "BeCrim"
@@ -887,7 +887,7 @@ BeCrim.Text = ""
 BeCrim.TextColor3 = Color3.fromRGB(0, 0, 0)
 BeCrim.TextSize = 14.000
 BeCrim.MouseButton1Down:Connect(function()
-		_G.execCmd("t crim", Player)
+		_G.execCmd("t crim", game.Players.LocalPlayer)
 end)
 
 BeNeu.Name = "BeNeu"
@@ -901,7 +901,7 @@ BeNeu.Text = ""
 BeNeu.TextColor3 = Color3.fromRGB(0, 0, 0)
 BeNeu.TextSize = 14.000
 BeNeu.MouseButton1Down:Connect(function()
-	_G.execCmd("t n", Player)
+	_G.execCmd("t n", game.Players.LocalPlayer)
 end)
 
 BeGuard.Name = "BeGuard"
